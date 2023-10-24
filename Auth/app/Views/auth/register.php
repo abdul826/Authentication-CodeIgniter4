@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 offset-4 mt-3">
+                <h2>Sign Up</h2>
+                <hr>
+                <?php
+                    if(!empty(session()->getFlashData('success'))){ ?>
+                        <div class="alert alert-success">
+                            <?= 
+                            session()->getFlashData('success');
+                            ?>
+                        </div>
+                    <?php
+                    }else if(!empty(session()->getFlashData('fail'))){ ?>
+                     <div class="alert alert-danger">
+                            <?= 
+                            session()->getFlashData('fail');
+                            ?>
+                        </div>
+                    <?php
+                    }
+                ?>
+                <form action="<?= base_url('/auth/registerUser') ?>" method="post"  >
+                    <?= csrf_field();?>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName" name="name" value="<?= set_value('name'); ?>" aria-describedby="nameHelp">
+                        <span class="text-danger text-sm">
+                            <?= isset($validation) ? display_form_errors($validation, "name") : "" ?>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?= set_value('email'); ?>" aria-describedby="emailHelp">
+                        <span class="text-danger text-sm">
+                            <?= isset($validation) ? display_form_errors($validation, "email") : "" ?>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" value="<?= set_value('password'); ?>">
+                        <span class="text-danger text-sm">
+                            <?= isset($validation) ? display_form_errors($validation, "password") : "" ?>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputcPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" id="exampleInputcPassword1" name="confirmpassword" value="<?= set_value('confirmpassword'); ?>">
+                        <span class="text-danger text-sm">
+                            <?= isset($validation) ? display_form_errors($validation, "confirmpassword") : "" ?>
+                        </span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+                <p>
+                    <a href="<?= site_url("/auth"); ?>">Already Have an account, Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
